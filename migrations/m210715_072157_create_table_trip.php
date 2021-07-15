@@ -26,6 +26,68 @@ class m210715_072157_create_table_trip extends Migration
 			'updated'=>$this->timestamp()->notNull()
 		]);
 
+    	$this->createIndex(
+    		'idx_trip_user_id_user',
+			'trip',
+			'user_id'
+		);
+    	$this->addForeignKey(
+    		'fk_trip_user_id_user',
+			'trip',
+			'user_id',
+			'user',
+			'id',
+			'restrict',
+			'cascade'
+		);
+
+    	$this->createIndex(
+    		'idx_trip_from_place',
+			'trip',
+			'from'
+		);
+
+    	$this->addForeignKey(
+    		'fk_trip_from_place',
+			'trip',
+			'from',
+			'place',
+			'id',
+			'restrict',
+			'cascade'
+		);
+
+    	$this->createIndex(
+    		'idx_trip_to_place',
+			'trip',
+			'to'
+		);
+
+    	$this->addForeignKey(
+    		'fk_trip_to_place',
+			'trip',
+			'to',
+			'place',
+			'id',
+			'restrict',
+			'cascade'
+		);
+
+    	$this->createIndex(
+    		'idx_trip_currency_id_currency',
+			'trip',
+			'currency_id'
+		);
+    	$this->addForeignKey(
+    		'fk_trip_currency_id_currency',
+			'trip',
+			'currency_id',
+			'currency',
+			'id',
+			'restrict',
+			'cascade'
+		);
+
     }
 
     /**
@@ -33,6 +95,18 @@ class m210715_072157_create_table_trip extends Migration
      */
     public function safeDown()
     {
+    	$this->dropForeignKey('fk_trip_user_id_user', 'trip');
+    	$this->dropIndex('idx_trip_user_id_user', 'trip');
+
+    	$this->dropForeignKey('fk_trip_from_place', 'trip');
+    	$this->dropIndex('idx_trip_from_place', 'trip');
+
+    	$this->dropForeignKey('fk_trip_to_place', 'trip');
+    	$this->dropIndex('idx_trip_to_place', 'trip');
+
+    	$this->dropForeignKey('fk_trip_currency_id_currency', 'trip');
+    	$this->dropIndex('idx_trip_currency_id_currency', 'trip');
+
     	$this->dropTable('trip');
     }
 
