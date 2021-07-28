@@ -20,7 +20,7 @@ $this->title = 'Register';
     <?= $registerForm->errorSummary($newUser) ?>
 	<?= $registerForm->field($newUser, 'username')->textInput(['autofocus' => true]) ?>
     <?= $registerForm->field($newUser, 'email')->textInput()?>
-	<?= $registerForm->field($newUser, 'password')->passwordInput() ?>
+	<?= $registerForm->field($newUser, 'password')->passwordInput(['value'=> '']) ?>
 
 
 	<div class="form-group">
