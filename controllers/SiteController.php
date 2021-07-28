@@ -91,7 +91,10 @@ class SiteController extends Controller
 		if (!Yii::$app->user->isGuest) {
 			return $this->goHome();
 		}
-		$newUser = new User;
+		$newUser = new User();
+		if ($newUser->load(Yii::$app->request->post()) && $newUser->save()){
+			return $this->goHome();
+		}
 		return $this->render('register', [
 			'newUser' => $newUser
 		]);

@@ -17,10 +17,9 @@ $this->title = 'Register';
 			'labelOptions' => ['class' => 'col-lg-1 control-label'],
 		],
 	]); ?>
-
+    <?= $registerForm->errorSummary($newUser) ?>
 	<?= $registerForm->field($newUser, 'username')->textInput(['autofocus' => true]) ?>
     <?= $registerForm->field($newUser, 'email')->textInput()?>
-
 	<?= $registerForm->field($newUser, 'password')->passwordInput() ?>
 
 
