@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -85,6 +86,16 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionRegister()
+	{
+		if (!Yii::$app->user->isGuest) {
+			return $this->goHome();
+		}
+		$newUser = new User;
+		return $this->render('register', [
+			'newUser' => $newUser
+		]);
+	}
 
     /**
      * Logout action.
