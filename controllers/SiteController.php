@@ -93,6 +93,7 @@ class SiteController extends Controller
 		}
 		$newUser = new User();
 		if ($newUser->load(Yii::$app->request->post()) && $newUser->save()){
+			Yii::$app->session->setFlash('success', 'Your Successful Registered ');
 			return $this->goHome();
 		}
 		return $this->render('register', [
