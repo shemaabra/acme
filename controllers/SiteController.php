@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -95,12 +96,32 @@ class SiteController extends Controller
 		$newUser = new User();
 		if ($newUser->load(Yii::$app->request->post()) && $newUser->save()
 			&& AcmeMailer::send(AcmeMailer::TYPE_REGISTRATION, $newUser)){
-			Yii::$app->session->setFlash('success', 'Your Successful Registered ');
+			Yii::$app->session->setFlash('success', 'Your Successful Registered Please check email');
 			return $this->goHome();
 		}
 		return $this->render('register', [
 			'newUser' => $newUser
 		]);
+	}
+
+	/**
+	 * @throws NotFoundHttpException
+	 */
+	public function actionActivate($user, $token)
+	{
+		$userToActivate = User::find()->where(['id'=>$user, 'uid'=>$token])->one();
+		if (empty($userToActivate))
+		{
+			throw new NotFoundHttpException("User is not found");
+		}
+		if (!$userToActivate->activate()) {
+			Yii::$app->session->setFlash('error', 'Can not activated');
+		}
+		else
+		{
+			Yii::$app->session->setFlash('success', 'sucessfull activated');
+		}
+		return $this->goHome();
 	}
 
     /**

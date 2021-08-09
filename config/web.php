@@ -27,20 +27,21 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-      /*  'mailer' => [
+
+     /* 'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            //'useFileTransport' => true,
+            //'useFileTransport' => false,
 			//'view' => '@app/mail',
 			'transport' => [
 				'class' => 'Swift_SmtpTransport',
-				'host' => 'smtp.gmail.com',
+				'host' => 'localhost',
 				'username' => 'abrashema9@gmail.com',
 				'password' => '',
-				'port' => '465',
-				'encryption' => 'ssl'
+				'port' => '587',
+				'encryption' => 'tls'
 			],
         ],
-      */
+		*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
